@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="utf-8">
+	<title>{{ page.title }} &laquo; {{site.title}}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+{% if page.keywords %}
+	<meta name="keywords" content="{{ page.keywords | join: ',' }}" />
+{% else %}
+	<meta name="keywords" content="{{site.keywords | join: ','}}" />
+{% endif %}
+{% if page.description %}
+	<meta name="description" content="{{ page.description }}" />
+{% else %}
+	<meta name="description" content="{{ site.description }}" />
+{% endif %}
+{% if page.author %}
+	<meta name="author" content="{{ page.author }}">
+{% else %}
+	<meta name="author" content="{{ site.author.name }}">
+{% endif %}
+	<meta name="robots" content="{{page.index}}INDEX,{{page.follow}}FOLLOW" />
+
+	<link rel="shortcut icon" href="/favicon.ico">
+	<!-- Le styles -->
+	<link href="{{site.base}}/assets/css/bootstrap.css" rel="stylesheet">
+	<link href="{{site.base}}/assets/css/pureweber.css" rel="stylesheet">
+	<link href="{{site.base}}/assets/css/font-awesome.css" rel="stylesheet">
+	<link rel="alternate" href="/atom.xml" type="application/atom+xml" title="PureWeber.com" />
+</head>
+<body>
+	<div id="nav" class="container">
+		<div class="inner">
+			<a href="/" class="logo">PureWeber</a>
+		<ul>
+			<li><a href="/"><i class="icon icon-home"></i> 首页</a></li>
+			<li><a href="/articles"><i class="icon icon-list"></i> 文章列表</a></li>
+			<li><a href="/about"><i class="icon icon-info-sign"></i> 关于</a></li>
+			<li><a id="to-top" href="#nav"><i class="icon icon-circle-arrow-up"></i> 回到顶部</a></li>
+		</ul>
+		</div>
+	</div>
+	<div id="wrap" class="container">

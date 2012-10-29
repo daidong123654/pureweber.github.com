@@ -1,0 +1,64 @@
+---
+layout: default
+title: Homepage
+tagline: homepage
+---
+
+<ul class="posts">
+{% for post in paginator.posts %}
+<li>&raquo; <span>{{ post.date | date_to_string }}</span> - <a href="{{post.url}}">{{post.title}}</a></li>
+{% endfor %}
+</ul>
+
+{% if paginator.total_pages > 1 %}
+
+<div class="pagination">
+	<ul>
+
+  {% if paginator.previous_page %}
+  <li class="previous">
+    {% if paginator.previous_page == 1 %}
+    <a href="/">&laquo;</a>
+    {% else %}
+    <a href="/page{{paginator.previous_page}}">&laquo;</a>
+    {% endif %}
+  </li>
+  {% else %}
+  <li class="previous disabled">
+    <span>&laquo;</span>
+  </li>
+  {% endif %}
+
+    <li class="page">
+      {% if paginator.page == 1 %}
+      <span class="current-page">1</span>
+      {% else %}
+      <a href="/">1</a>
+      {% endif %}
+    </li>
+
+    {% for count in (2..paginator.total_pages) %}
+    <li class="page">
+      {% if count == paginator.page %}
+      <span class="current-page">{{count}}</span>
+      {% else %}
+      <a href="/page{{count}}">{{count}}</a>
+      {% endif %}
+    </li>
+    {% endfor %}
+
+  {% if paginator.next_page %}
+  <li class="next">
+    <a href="/page{{paginator.next_page}}">&raquo;</a>
+  </li>
+  {% else %}
+  <li class="next disabled">
+	  <span>&raquo;</span>
+  </li>
+  {% endif %}
+
+  </ul>
+
+</div>
+
+{% endif %}

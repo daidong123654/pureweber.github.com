@@ -1,0 +1,18 @@
+permalink: /article/:year/:month/:title.html
+auto: true
+#markdown: rdiscount
+markdown: kramdown
+pygments: true
+paginate: 30
+
+title : Zhiyan
+tagline: Passionate Web Developer
+author :
+  name : DUAN Zhiyan
+  email : dzy0451@gmail.com
+  github : dzy0451
+  twitter : dzy0451
+  feedburner : dzy0451
+  avatar: http://www.gravatar.com/avatar/cc0940733af72571ae32904ffbdc113e
+
+production_url : http://beta.pureweber.com
