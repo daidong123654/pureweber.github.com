@@ -4,6 +4,7 @@ auto: true
 markdown: kramdown
 pygments: true
 paginate: 30
+encoding: utf8
 
 title : Zhiyan
 tagline: Passionate Web Developer

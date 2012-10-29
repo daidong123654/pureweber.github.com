@@ -1,10 +1,13 @@
 ---
 layout: post
 title: Ajax初步
+author: 段志岩
+description: 介绍Ajax技术的组成部分、使用场景以及XMLHttpRequest对象的使用方法和示例。
 tags:
   - ajax
   - javascript
   - xhr
+  - xmlhttprequest
 
 ---
 

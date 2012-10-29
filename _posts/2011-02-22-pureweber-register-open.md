@@ -1,9 +1,11 @@
 ---
 layout: post
 title: PureWeber开放报名了
+author: 段志岩
 tags:
-  - '%e6%8a%a5%e5%90%8d'
-  - '%e8%af%be%e7%a8%8b'
+  - 'Web开发'
+  - '培训班'
+  - '报名'
 
 ---
 
