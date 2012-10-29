@@ -1,0 +1,136 @@
+body{
+	font-size:1em;
+	background:url(img/grid.png) repeat;
+	color:#333;
+	font-family: "宋体", Arial, sans-serif;
+}
+h1, h2, h3, h4, h5, h6{
+	font-family: "黑体", Georgia, serif;
+	color:#000;
+	line-height:2em;
+	margin:0;
+}
+h1{ font-size:2.2em; }
+h2{ font-size:2em; }
+h3{ font-size:1.8em; }
+h4{ font-size:1.6em; }
+h5{ font-size:1.4em; }
+h6{ font-size:1.2em; }
+p{
+	line-height:1.8em;
+	padding:.5em 0;
+	margin:0;
+}
+blockquote{
+	color:#555;
+}
+pre{
+	border:1px solid #ccc;
+	border-radius:3px;
+	box-shadow:inset 0 0 3px #ccc;
+	padding:15px;
+}
+em{
+	font-style:normal;
+	border-bottom:1px solid red;
+}
+a{
+}
+a:link{ color:#08C; }
+a:visited{ color:#099; }
+a:hover{ color: #06c; }
+a:active{ color:#08c; }
+
+.container{
+	margin:0 auto;
+}
+#nav{
+	height:45px;
+	position:relative;
+}
+#nav .inner{
+	width:830px;
+	position:fixed;
+	background:#333;
+	z-index:99;
+	border-radius:0 0 5px 5px;
+	background:#333 url(img/wild_oliva.png) repeat;
+}
+#nav .logo{
+	display:block;
+	float:left;
+	height:45px;
+	width:185px;
+	padding:0 0 0 15px;
+	line-height:45px;
+	color:#fff;
+	font-weight:bold;
+	font-family: "黑体", Georgia, serif;
+}
+#nav ul{
+	position:absolute;
+	right:0;
+	margin:0;
+	padding:0;
+}
+#nav ul li{
+	float:left;
+	list-style:none;
+	padding:0 1em;
+}
+#nav ul li a{
+	line-height:45px;
+	display:block;
+	height:45px;
+	color:#fff;
+}
+#nav ul li a:link{ color:#fff; }
+#nav ul li a:visited{}
+#nav ul li a:hover{ color: #fc0; }
+#nav ul li a:active{}
+#wrap{
+	margin-top:15px;
+	margin-bottom:50px;
+	background:#fff;
+	border-radius:5px;
+	box-shadow:inset 0 0 3px #000,
+		0 0 3px #eee;
+}
+#header{
+	border-radius:5px 5px 0 0;
+	box-shadow:inset 0 0 3px #000;
+	padding:0 15px;
+	background:#333 url(img/wild_oliva.png) repeat;
+	color:#fff;
+}
+#header h1{
+	color:#fff;
+}
+#meta{
+	padding: 0 15px;
+	background-color:#f5f5f5;
+	box-shadow:inset 0 0 3px #000;
+}
+#meta .avatar img{
+	border-radius:5px;
+}
+#article{
+	padding:0 15px;
+}
+#article .title{
+}
+#article img{
+	max-width:100%;
+	border-radius:5px;
+}
+#article .cover-image{
+	padding:15px 0;
+}
+#comments{
+	padding:15px;
+}
+#footer{
+	text-align:center;
+	border-top:1px solid #ccc;
+	border-radius:0 0 5px 5px;
+}
