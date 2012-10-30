@@ -5,6 +5,7 @@ markdown: kramdown
 pygments: true
 paginate: 30
 encoding: utf8
+safe: true
 
 title : PureWeber.com &laquo; 纯粹互联网
 tagline: Passionate Web Developer

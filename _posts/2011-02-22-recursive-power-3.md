@@ -1,11 +1,13 @@
 ---
 layout: post
 title: 递归的力量（三）：更多例子
+description: 以汉诺塔问题为例，说明递归的使用方法，并分析该汉诺塔问题递归实现的时间复杂度。
+author: 段志岩
+github: dzy0451
 tags:
-  - '%e5%a4%8d%e6%9d%82%e5%ba%a6%e5%88%86%e6%9e%90'
-  - '%e6%b1%89%e8%af%ba%e5%a1%94'
-  - '%e9%80%92%e5%bd%92'
-
+ - '递归'
+ - '汉诺塔问题'
+latex: true
 ---
 
 昨天说了一些递归的简单应用，今天再说一点其他的应用吧。
@@ -26,7 +28,8 @@ tags:
 很容易看到，当只有一个圆盘时，只要把它从源移动到目的就行了。这就是简单情境。
 
 好，两个条件都具备了，我们可以开始写程序了。
-[coolcode lang="cpp"]
+
+{% highlight cpp linenos %}
 void move_single_disk(char source, char target){
     printf("%c --> %c\n", source, target);
 }
@@ -39,25 +42,26 @@ void move_hanoi_tower(char source, char target, char tmp, int n){
           move_hanoi_tower(tmp, target, source, n - 1)
     }
 }
-[/coolcode]
+{% endhighlight %}
+
 以上就是实现输出汉诺塔问题解的主要函数了。你可以编写一个主程序来调用它们。像这样：
-[coolcode lang="cpp"]
+{% highlight cpp linenos %}
 int main(){
     move_hanoi_tower('A', 'B', 'C', 8);
     return 0;
 }
-[/coolcode]
+{% endhighlight %}
 
 不错吧，很简洁的，几行代码，就解决了这个问题。是不是很爽呢？不过这个递归调用的算法的复杂性如何呢？让我们来看看。
 
 记规模为n的输入耗时T(n)，则：
-[latex]T(1) = 1[/latex]
-[latex]T(n) = 2*T(n-1) + 1[/latex]
-[latex]T(n) + 1= 2*(T(n-1) + 1)[/latex]
-[latex]T(n) + 1 = (T(1) + 1) * ( 1 - (T(1)+1)^n) / ( 1 - (T(1)+1))[/latex]
-[latex]T(n) = 2^n - 1[/latex]
 
-啊，指数级，好像效率不太高啊。但确实解决了问题。
+`\( T(1) = 1 \\
+T(n) = 2*T(n-1) + 1 \\
+T(n) + 1= 2*(T(n-1) + 1) \\
+T(n) + 1 = (T(1) + 1) * ( 1 - (T(1)+1)^n) / ( 1 - (T(1)+1)) \\
+T(n) = 2^n - 1
+\)`
 
 这是一个很经典的例子，我们来给它改个版，留为今天的作业吧：
 

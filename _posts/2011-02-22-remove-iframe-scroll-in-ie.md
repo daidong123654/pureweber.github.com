@@ -1,38 +1,29 @@
 ---
 layout: post
 title: IE中如何去掉IFrame的边框和滚动条
+description: 在IE浏览器中使用iFrame标签时，设定边框和滚动条的显示与否与标准CSS定义的方式不同，本文说明如何在IE中去除iframe标签的边框和滚动条。
+author: 段志岩
+github: dzy0451
 tags:
   - ie
   - iframe
-  - '%e6%bb%9a%e5%8a%a8%e6%9d%a1'
-  - '%e8%be%b9%e6%a1%86'
+  - '滚动条'
+  - '边框'
 
 ---
 
-<strong>问题描述</strong>
+## 问题描述
 
 IE中使用IFrame时，无法用CSS属性来去掉IFrame的边框和滚动条。
 
-<em>HTML代码</em>
-
-[coolcode lang="html"]
+{% highlight cpp %}
 <iframe  style="border:none;overflow:hidden" src="http://sina.com.cn"></iframe>
-[/coolcode]
+{% endhighlight %}
 
-<em>效果</em>
+## 解决方法
 
-<iframe  style="border:none;overflow:hidden" src="http://sina.com.cn"></iframe>
+使用HTML中IFrame标签的`frameborder`和`scrolling`属性来控制，将`frameborder`属性的值设置为`0`，`scrolling`属性的值设置为`no`即可。
 
-<strong>解决方法</strong>
-
-使用HTML中IFrame标签的<span style="color: #3366ff;">frameborder</span>和<span style="color: #3366ff;">scrolling</span>属性来控制，将<span style="color: #3366ff;">frameborder</span>属性的值设置为<span style="color: #ff0000;">0</span>，<span style="color: #3366ff;">scrolling</span>属性的值设置为<span style="color: #ff0000;">no</span>即可。
-
-<em>HTML代码</em>
-
-[coolcode lang="html"]
+{% highlight cpp %}
 <iframe  frameborder="0" scrolling="no" src="http://sina.com.cn"></iframe>
-[/coolcode]
-
-<em>效果</em>
-
-<iframe  frameborder="0" scrolling="no" src="http://sina.com.cn"></iframe>
+{% endhighlight %}

@@ -21,15 +21,22 @@ p{
 	padding:.5em 0;
 	margin:0;
 }
-blockquote{
-	color:#555;
-}
+code.has-jax,
+blockquote,
 pre{
+	display:block;
 	border:1px solid #ccc;
 	border-radius:3px;
 	box-shadow:inset 0 0 3px #ccc;
 	padding:15px;
 	overflow:auto;
+}
+blockquote{
+	margin:0;
+	color:#555;
+}
+code{
+	font-family: monospace;
 }
 em{
 	font-style:normal;
@@ -149,7 +156,7 @@ a:active{ color:#08c; }
 }
 
 ul.posts li span{
-	font-size:11px; font-family:"Lucida Console", Monaco, monospace;
+	font-family:"Lucida Console", Monaco, monospace;
 	padding-left:10px;
 }
 ul.posts li{
