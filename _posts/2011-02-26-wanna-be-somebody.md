@@ -1,6 +1,8 @@
 ---
 layout: post
 title: 江湖闯名号
+author: 段志岩
+github: dzy0451
 
 ---
 
@@ -29,7 +31,7 @@ title: 江湖闯名号
 p.block{
 position:relative;
 padding-left:80px;
-height:106px;width:350px;
+height:106px;
 }
 p.block img.avatar{
 position:absolute;left:0;padding:0;border:1px solid #ccc;
