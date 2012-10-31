@@ -1,11 +1,12 @@
 ---
 layout: post
 title: 'PureWeber Goo Shortener - 学生作品'
+author: 段志岩
 tags:
-  - goo-gl
-  - '%e5%ad%a6%e7%94%9f%e4%bd%9c%e5%93%81'
-  - '%e7%9f%ad%e7%bd%91%e5%9d%80'
-  - '%e9%95%bf%e7%bd%91%e5%9d%80'
+  - goo.gl
+  - '学生作品'
+  - '短网址'
+  - '长网址缩短'
 
 ---
 

@@ -1,14 +1,17 @@
 ---
 layout: post
 title: '使用Gravatar - 普通用户&开发者'
+description: 本文介绍如何使用Gravatar的头像服务。从普通用户和开发者两个角度，介绍Gravatar头像服务的使用和开发方法。
+author: 张雄
+github: bearzx
 tags:
   - gravatar
-  - '%e5%88%86%e4%ba%ab%e4%bc%9a'
-  - '%e5%a4%b4%e5%83%8f'
+  - '头像服务'
+  - '开发'
 
 ---
 
-<h3>Gravatar是什么</h3>
+##Gravatar是什么
 
 <a rel="attachment wp-att-860" href="http://www.pureweber.com/article/gravatar-for-users-developers/2011-05-08_121028/"><img class=" size-full wp-image-860" src="http://www.pureweber.com/wp-content/uploads/2011/06/2011-05-08_121028.png" alt="" width="530" height="345" /></a>
 
@@ -16,7 +19,7 @@ Gravatar是www.gravatar.com 推出的一项服务，意为“全球通用头像�
 
 <a rel="attachment wp-att-861" href="http://www.pureweber.com/article/gravatar-for-users-developers/1-2/"><img class="size-large wp-image-861 " src="http://www.pureweber.com/wp-content/uploads/2011/06/1-1024x384.png" alt="" width="600" /></a>
 
-<h3>普通用户</h3>
+##普通用户
 
 作为一名普通的用户，如何使用Gravatar呢？
 
@@ -41,25 +44,25 @@ Gravatar是www.gravatar.com 推出的一项服务，意为“全球通用头像�
 以上是作为普通用户的gravatar使用方法，对于开发者，gravatar同样提供了一些便利的使用方式来丰富你的站点。
 
 
-<h3>开发者</h3>
+##开发者
 
 gravatar不但为普通用户提供了头像解决方案，还为开发者们提供了一些接口，方便开发者调用gravatar头像以及在用户gravatar头像中包含的简单profile。在gravatar首页中可以找到开发者文档的入口，里面有关于如何使用gravatar接口的文档。
 
-<a rel="attachment wp-att-869" href="http://www.pureweber.com/article/gravatar-for-users-developers/2011-05-08_125552/"><img class=" size-full wp-image-869" src="http://www.pureweber.com/wp-content/uploads/2011/06/2011-05-08_125552.png" alt="" width="249" height="113" /></a>
-
 最常用的调用方式是通过URL调用头像和用户profile。通过URL调用要经过以下几个步骤Creating the Hash将欲调用的用户的email字符串去掉空格，并将所有字母转换为小写，最后将其转换为md5码，以php语言为例：
 
-<coolcode lang="php" linenum="off">
+{% highlight php %}
+<?php
 $email = trim(“MyEmailAddress@example.com”);
 $email = strtolower($email);
 echo md5($email);
-</coolcode>
+?>
+{% endhighlight %}
 
-接下来便可利用得到的字符串构造URL来调用gravatar中的头像了。简单调用，将得到的hash后的字符加在http://www.gravatar.com/avatar/之后，再将其写到&lt;img&gt;标签的src属性中，便可以调用了。如hash后得到的字符串为205e460b479e2e5b48aec07710c08d51，便可按以上方法调用为：
+接下来便可利用得到的字符串构造URL来调用gravatar中的头像了。简单调用，将得到的hash后的字符加在http://www.gravatar.com/avatar/之后，再将其写到`<img>`标签的src属性中，便可以调用了。如hash后得到的字符串为205e460b479e2e5b48aec07710c08d51，便可按以上方法调用为：
 
-<coolcode lang="html" linenum="off">
+{% highlight html %}
 <img src="http://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d51" />
-</coolcode>
+{% endhighlight %}
 
 <strong>文件格式</strong>：如果需要文件的格式，也可以在后面加上后缀，如’.jpg’。在调用的时候，也可以进行一些简单的参数设置，如大小，缺省等。
 
@@ -69,16 +72,19 @@ echo md5($email);
 
 还有一些其他的参数设置，如强制缺省，制定分级，详细内容请参考官方文档。注册gravatar时还会填写一些个人信息（邮箱，个人主页等）这些信息也可以通过gravatar URL来调用。方法也是先将email hash一下，然后加在http://www.gravatar.com/之后，注意，和调用头像不同，向这一URL发送请求，返回信息就包含着profile中的信息。
 
-<coolcode lang="php" linenum="off">
+{% highlight php %}
+<?php
 $str = file_get_contents( 'http://www.gravatar.com/'.$email.'.php' );
 $profile = unserialize( $str );
-</coolcode>
+?>
+{% endhighlight %}
 
 这样就得到了全部的profile信息，profile中包含若干键值对，其中键为信息的标题（姓名，电话等），值为信息的内容。
 除此之外，gravatar还有远程调用的接口，用于在用户认证的基础上，修改用户gravatar账户中的信息，由于并不常用，所以不再赘述，有兴趣可以参考官方文档。
 
 总之，gravatar的出现对于普通用户来说，提供了一个管理头像平台，能够为用户节省精力，对于开发者来说，在自己的站点中引入gravatar也能够为自己的网站增色不少。
-附链接
+
+## 参考资料
 
 <ul>
 <li><a href="http://gravatar.com">Gravatar.com</a></li>

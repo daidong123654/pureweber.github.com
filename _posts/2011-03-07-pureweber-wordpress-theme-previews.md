@@ -1,11 +1,13 @@
 ---
 layout: post
 title: PureWeber首批主题预览图放出
+author: 段志岩
+github: dzy0451
 tags:
   - theme
   - wordpress
-  - '%e4%b8%bb%e9%a2%98'
-  - '%e9%a2%84%e8%a7%88%e5%9b%be'
+  - '主题'
+  - '预览图'
 
 ---
 

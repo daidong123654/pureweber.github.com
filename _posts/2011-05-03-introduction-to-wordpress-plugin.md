@@ -1,6 +1,8 @@
 ---
 layout: post
 title: WordPress插件制作简介
+author: 田大龙
+github: glovenone
 tags:
   - plugin
   - wordpress
@@ -9,31 +11,30 @@ tags:
 
 ---
 
-<h3>第二次分享会详情</h3>
-
-<a href="http://www.pureweber.com/wp-content/uploads/2011/05/shown.jpg"><img src="http://www.pureweber.com/wp-content/uploads/2011/05/shown-300x199.jpg" alt="" title="分享现场" width="300" height="199" class="alignright size-medium wp-image-733" style="clear:both" /></a>
+![分享会现场照片](http://www.pureweber.com/wp-content/uploads/2011/05/shown.jpg)
 
 <table>
 <tr><th>主讲人</th><td>田大龙</td></tr>
 <tr><th>题目</th><td>Wordpress插件开发</td></tr>
 <tr><th>时间</th><td>2011-4-24</td></tr>
-<tr><th>&nbsp;</th><td><a href="http://www.pureweber.com/wp-content/uploads/2011/05/wordpress插件.ppt">下载课件</td></tr>
+<tr><th>&nbsp;</th><td><a href="http://www.pureweber.com/wp-content/uploads/2011/05/wordpress插件.ppt">下载课件</a></td></tr>
 </table>
 
 
 
--------------华丽的分割线-------------
+-----------华丽的分割线-------------
 
 这里并没有手把手教你制作一个插件出来，本篇文章意在向大家介绍WordPress插件制作的基本步骤以及需要了解的必要知识，详细的WP插件制作教程网上有很多，本文最后也推荐了一些比较好的教程网站。
 
 OK，言归正传.
 
-<h3>1:介绍</h3>
+##1 介绍
+
 简单定义：
 WordPress插件是一个能够扩展WordPress博客功能的PHP脚本程序或函数集。
 目的是为了使WordPress变得扩展性强，易修改和个性化。而且不需要修改WordPress的核心代码。
 
-<h3>2:新建一个插件</h3>
+##2 新建一个插件
 
 <strong>2.1 名字，文件，位置</strong>
 
@@ -58,7 +59,8 @@ WordPress插件是一个能够扩展WordPress博客功能的PHP脚本程序或�
 
 形式如下:
 
-[coolcode lang="php"]
+{% highlight php %}
+<?php
 /*
 Plugin Name: Name Of The Plugin
 Plugin URI: http://URI_Of_Page_Describing_Plugin_and_Updates
@@ -67,17 +69,14 @@ Version: The Plugin's Version Number, e.g.: 1.0
 Author: Name Of The Plugin Author
 Author URI: http://URI_Of_The_Plugin_Author
 */
-[/coolcode]
+?>
+{% endhighlight %}
 
 最主要的是Plugin Name，WordPress主要是识别它来显示出一个插件。
 
 <strong>2.2.2 授权信息</strong>
 
-通常大家就直接用标准的授权信息当作自己的授权信息。很多的插件用得就是GPL。加入下面的文字，
-
-可以简要的说明GPL：
-
-[coolcode lang="php"]/* Copyright Glove glovenone@gmail.com */[/coolcode]
+通常大家就直接用标准的授权信息当作自己的授权信息。很多的插件用得就是GPL。
 
 <strong>2.3 开始编程</strong>
 
@@ -95,19 +94,25 @@ wordpress插件主要使用一种叫hook的接口：
 
 添加一个filter的格式为:
 
-[coolcode lang="php"]add_action ( 'hook_name', 'your_function_name', [priority], [accepted_args] );[/coolcode]
+{% highlight php %}
+<?php
+add_action ( 'hook_name', 'your_function_name', [priority], [accepted_args] );
+?>
+{% endhighlight %}
 
 例子:
 
 当访客访问站点后，执行的是index.php，即WordPress的入口程序。index.php先后载入一些基本参数（如数据库信息、默认语言），进行一些必要的检查（如WordPress是否已经安装），然后载入我们的插件，当然，前提是这个插件已经启用。在插件中，我们输入以下代码：
 
-[coolcode lang="php"]
+{% highlight php %}
+<?php
 function print_my_feed(){
     //do something
     echo 'Hello, boy!';
 }
 add_action('wp_head','print_my_feed');
-[/coolcode]
+?>
+{% endhighlight %}
 
 
 如代码所示，wp_head就是一个Action名，当WordPress执行到wp_head这个Action时，它将执行我们插入的print_my_feed函数。这里的函数既可以做某些后台的操作，如update_option，也可以用于前台的输出，如echo，做一些适合在该Action发生的动作。
@@ -116,11 +121,16 @@ add_action('wp_head','print_my_feed');
 
 添加一个filter的格式为：
 
-[coolcode lang="php"]add_filter('hook_name','your_filter',[priority],[accepted_args]);[/coolcode]
+{% highlight php %}
+<?php
+add_filter('hook_name','your_filter',[priority],[accepted_args]);[/coolcode]
+?>
+{% endhighlight %}
 
 例子:
 
-[coolcode lang="php"]
+{% highlight php %}
+<?php
 function addContent($content = “”) {
     //the content we modified
     $data = 'the data we added';
@@ -128,7 +138,8 @@ function addContent($content = “”) {
     return $content;
 }
 add_filter(“the_content”, addContent);
-[/coolcode]
+?>
+{% endhighlight %}
 
 调用add_filter函数时,必须在数据显示、保存等操作之前进行.
 
@@ -142,18 +153,17 @@ WordPress有一套在数据库中保存、更改、读取独立的、有名字�
 <div><strong>2.4  i18n你的插件</strong></div>
 一个很有意思的词：i18n—internationalization，国际化的缩写，之所以如此缩写是因为从i到n有18个字母，它意指让我们的插件能够在世界上使用，即可以被翻译成各国语言。我们需要在定义字符串和输出字符串时做一些操作。
 
-<h3>3:插件开发建议</h3>
+##3:插件开发建议
+
 <ul>
 	<li>要遵循标准，统一标准可以给自己和他人同时带来方便，“WordPress Coding Stardards”。</li>
-</ul>
-<ul>
 	<li>函数不要重名，否则可能会造成混乱，通常加一个不会重复的前缀就好了。</li>
 	<li>代码中不要把WordPress前缀写成“wp_”，要写成$wpdb-&gt;prefix，虽然它们的意思相同。</li>
-</ul>
-<ul>
 	<li>为了提高你插件的效率和可用性，尽量减少向数据写东西的次数，并且只“Select”你需要的字段。不要用“Select *”这样的语句，这种插件会让你WP的速度变慢很多。</li>
 </ul>
-<h3>4:相关资源</h3>
+
+##4:相关资源
+
 <ol>
 	<li><a href="http://codex.wordpress.org/Plugin_API">wordpress官方API</a></li>
 	<li><a href="http://liucheng.name/864/">WordPress插件制作入门教程</a></li>

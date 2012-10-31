@@ -1,13 +1,18 @@
 ---
 layout: post
 title: 'HIT ACM Group新版网站上线'
+author: 段志岩
+github: dzy0451
 tags:
   - develop
   - hoj
 
 ---
 
-<a href="http://www.pureweber.com/wp-content/uploads/2011/09/construction.png"><img src="http://www.pureweber.com/wp-content/uploads/2011/09/construction.png" alt="" title="construction" width="300" height="300" class="alignright size-full wp-image-1177" /></a><h2>概述</h2>
+![](http://www.pureweber.com/wp-content/uploads/2011/09/construction.png)
+
+<h2>概述</h2>
+
 HIT ACM Group的新版网站已经上线，欢迎大家积极使用，帮助开发组发现和解决bug，让我们的HOJ更加好用，更加强大。
 
 尽管开发组的同学们付出了很大的努力，但是因为全面改版的工作量很大，依然有很多细节之处没有做好，如果给大家带来了使用上的不便，希望大家能够多多理解。

@@ -1,25 +1,27 @@
 ---
 layout: post
 title: FireBug和YSlow介绍
+author: 陈云飞
+github: cloudfly
 tags:
   - chrome
   - firebug
   - firefox
   - javascript
   - yslow
-  - '%e5%bc%80%e5%8f%91%e8%80%85%e5%b7%a5%e5%85%b7'
+  - '开发者工具'
 
 ---
 
-<blockquote>
-<h2><span style="font-size: 13px;font-weight: normal">Firebug是Firefox浏览器最好的插件之一，对于网页开发人员来说是一个利器，能够极大地提升工作效率。当你在浏览网页时，它能使你实时的在任何一个页面上编辑，测试css，DOM，Html，javascript。</span></h2>
-Yslow也是Firefox的一个扩展，可以对网站的页面进行分析，并告诉你为了提高网站性能，如何基于某些规则而进行优化。</blockquote>
-<strong>注：下面的操作可以随意用打开个网页进行，因为操作都很简单，建议每看一步就实际操作一下，这样还可以发现一些文中没提到的功能。</strong>
+<strong>注：本文中的所有操作可以随意打开一个网页进行，因为操作都很简单，建议每看一步就实际操作一下，这样还可以发现一些文中没提到的功能。</strong>
+
+>Firebug是Firefox浏览器最好的插件之一，对于网页开发人员来说是一个利器，能够极大地提升工作效率。当你在浏览网页时，它能使你实时的在任何一个页面上编辑，测试css，DOM，Html，javascript。
+>Yslow也是Firefox的一个扩展，可以对网站的页面进行分析，并告诉你为了提高网站性能，如何基于某些规则而进行优化。
+
 
 <strong>
 </strong>
 <h2>Firebug窗口预览</h2>
-&nbsp;
 
 <a rel="attachment wp-att-1072" href="http://www.pureweber.com/article/firebug-yslow/firebug_win/"><img class="alignnone size-full wp-image-1072" src="http://www.pureweber.com/wp-content/uploads/2011/09/firebug_win.png" alt="" width="469" height="97" /></a>
 
@@ -33,7 +35,6 @@ Yslow也是Firefox的一个扩展，可以对网站的页面进行分析，并�
 	<li> Yslow标签：	Yslow工具，安装后就会嵌套在Firebug工具当中随时编辑页面</li>
 </ul>
 <h2>随时编辑页面</h2>
-&nbsp;
 
 <a rel="attachment wp-att-1074" href="http://www.pureweber.com/article/firebug-yslow/g0ho3r/"><img class="alignnone size-full wp-image-1074" src="http://www.pureweber.com/wp-content/uploads/2011/09/g0Ho3r.png" alt="" width="450" height="276" /></a>
 
@@ -44,9 +45,7 @@ Yslow也是Firefox的一个扩展，可以对网站的页面进行分析，并�
 
 Firebug同时是源码浏览器和编辑器。所有HTML、CSS和Javascript文件中的对象，都可以用单击或双击进行编辑。当你输入完毕，浏览器中的页面立刻会发生相应变化，你可以得到瞬时反馈。
 
-&nbsp;
 <h2>用Firebug处理CSS</h2>
-&nbsp;
 
 在CSS标签中，Firebug会自动补全你的输入。在DOM标签中，当你按Tab键时，Firebug会自动补全属性名。
 <a rel="attachment wp-att-1076" href="http://www.pureweber.com/article/firebug-yslow/css/"><img class="alignnone size-full wp-image-1076" src="http://www.pureweber.com/wp-content/uploads/2011/09/css.gif" alt="" width="214" height="164" /></a>
@@ -61,18 +60,18 @@ Net标签中图形化了页面中所有http请求所用的时间。你可以用�
 
 <a rel="attachment wp-att-1079" href="http://www.pureweber.com/article/firebug-yslow/net/"><img class="alignnone size-full wp-image-1079" src="http://www.pureweber.com/wp-content/uploads/2011/09/net.png" alt="" width="413" height="143" /></a>
 <h2>Javascript调试</h2>
-&nbsp;
+
 
 在script标签中，可以查看整个页面的所有javascript代码，并在代码中设置断点进行debug，左上角有下一步和继续等按钮，窗口右侧是代码中变量和一些DOM的值，他们会随着javascript代码的运行而变化，同时debug时如果代码对页面内容或效果作出改变，页面也会作出即使的响应。这个debug过程和codeblock和netbeans等IDE都非常相似而且操作要简单的多。
 
 <a rel="attachment wp-att-1080" href="http://www.pureweber.com/article/firebug-yslow/script/"><img class="alignnone size-full wp-image-1080" src="http://www.pureweber.com/wp-content/uploads/2011/09/script.png" alt="" width="556" height="213" /></a>
 <h2>Firebug控制台使用</h2>
-&nbsp;
+
 
 控制台(console)非常强大，也是firebug里最重要的面板，主要作用是显示网页加载过程中产生各类信息。
 
 它能列出javascript调用的所有函数，及其所花的时间。对javascript调试非常有用。而且它还提供了一个console对象，我们可以利用这个对象的各种函数来对javascript代码进行测试。给前端开发带来了极大的方便。下面简单介绍下console对象的使用，在javascript代码中加入下列代码。
-<coolcode lang="javascript">var dog = {};//声明一个对象
+{% highlight javascript %}var dog = {};//声明一个对象
 dog.name = "大黄";//为dog对象设定一些属性
 dog.color = "黄色";
 dog.bark = function(){alert("wa kakaka");};
@@ -95,27 +94,27 @@ console.assert(result == 1);
 
 //计时功能——time
 console.time("firsttime");
-for(var i = 0;i &lt; 1000;i++)
+for(var i = 0;i < 1000;i++)
 {
-for(var j = 0;j &lt; 1000;j++){}
+	for(var j = 0;j < 1000;j++){}
 }
 console.timeEnd("firsttime");
 
 //创建两个函数foo和foo2
 function foo(){
-for(var i = 0;i &lt; 1000;i++){
-for(var j = 0;j &lt; 30;j++){ foo2();}
-}
+	for(var i = 0;i < 1000;i++){
+		for(var j = 0;j < 30;j++){ foo2();}
+	}
 }
 function foo2(){
-for(var k = 0;k &lt; 1000;k++){}
+	for(var k = 0;k < 1000;k++){}
 }
 
 //性能分析器——profile
 console.profile("性能分析器");
 foo();
 foo2();
-console.profileEnd();</coolcode>
+console.profileEnd();{% endhighlight %}
 
 运行之后在firebug控制台可看到下面的效果
 
@@ -137,9 +136,9 @@ console.profileEnd();</coolcode>
 链接：<a href="http://www.ruanyifeng.com/blog/2011/03/firebug_console_tutorial.html">http://www.ruanyifeng.com/blog/2011/03/firebug_console_tutorial.html</a>
 上面的代码在文章尾部有相关<a href="http://www.pureweber.com/wp-content/uploads/2011/09/firebugyslow.zip">下载</a>，可下载下来实践一下。
 
-&nbsp;
+
 <h2>Yslow分析网页性能</h2>
-&nbsp;
+
 
 Yslow的功能在文章的开始处已经说明。它有四个试图，每个试图都是对整个页面在不同方面的信息显示。
 <h3>组件试图</h3>

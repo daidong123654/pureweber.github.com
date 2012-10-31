@@ -1,20 +1,24 @@
 ---
 layout: post
 title: '浅谈jQuery'
+description: 介绍jQuery的基本功能和用法，包括：事件绑定、DOM操作、Ajax异步加载等内容。
+author: 付建宇
+github: 7lemon
 tags:
-  - ajax
   - jquery
-  - '%e4%ba%8b%e4%bb%b6%e7%bb%91%e5%ae%9a'
-  - '%e5%88%86%e4%ba%ab%e4%bc%9a'
-  - '%e7%ae%80%e4%bb%8b'
+  - '事件绑定'
+  - 'DOM操作'
+  - ajax
 
 ---
 
-<a href="http://www.pureweber.com/wp-content/uploads/2011/04/jquery_icon.png"><img style="clear:both;" src="http://www.pureweber.com/wp-content/uploads/2011/04/jquery_icon.png" alt="" title="jquery_icon" width="256" height="256" class="alignright size-full wp-image-670" /></a>第一次分享会开始，第一次分享的是表面上的东西。这里所说的表面上的东西并不是指十分浅显的东西，而是直接与用户交互的那一部分。我们重点来说一说JavaScript的一个比较流行的库——jQuery。
+![jQuery Icon](http://www.pureweber.com/wp-content/uploads/2011/04/jquery_icon.png)
+
+第一次分享会开始，第一次分享的是表面上的东西。这里所说的表面上的东西并不是指十分浅显的东西，而是直接与用户交互的那一部分。我们重点来说一说JavaScript的一个比较流行的库——jQuery。
 
 JavaScript和HTML还有CSS一样，都是下载到用户本地，由用户的浏览器进行解释和执行的。
 
-<h3>1、jQuery是什么</h3>
+##1、jQuery是什么
 
 刚才已经说过了，它是一个JavaScript的库。这些库被用来简化JavaScript的开发，利用这些库，可以降低开发人员JavaScript的技术门槛，使用一些简单的方法实现高兼容性，高移植性的功能。比如对于初学者来说，难以写出同时兼容IE，Firefox，Chrome，Opera的JavaScript代码来，因为需要考虑的方面比较多。但是利用第三方库，这些兼容性问题就可以忽略掉了。说着说着感觉有点像Java的样子。
 
@@ -28,7 +32,7 @@ jQuery如此流行的原因就是因为它简单易用，容易上手。拥有�
 
 jQuery强调的理念是写得少，做得多。虚的东西不多说了，咱们主要是分享经验，不是给jQuery做广告。
 
-<h3>2、代码示例</h3>
+##2、代码示例
 
 <a href="http://www.pureweber.com/works/demos/jquery-kick-off/basic.html" target="_blank">点我穿越</a>
 
@@ -38,7 +42,7 @@ $()，美元符号，这个是jQuery的工厂函数。能做选择器来用，�
 
 这里说到了节点，为什么说成是节点，我们往下看。
 
-<h3>3、jQuery对象 VS DOM对象</h3>
+##3、jQuery对象 VS DOM对象
 
 初次接触jQuery，经常分不清jQuery对象和DOM对象。冷不丁写出来一段代码，很有可能就不知道用什么方法来进行下一步。对用惯了JavaScript直接编码的人来说，这种障碍可能更大一些。初学者直接跨过JavaScript而是用jQuery的话，也需要对这两个对象深入理解才能进行更深入的学习。
 
@@ -48,7 +52,7 @@ DOM对象，jQuery对象，我想了很久，想到一个比较形象的比喻�
 
 分清DOM对象和jQuery对象对以后的使用会有很大帮助。DOM对象和jQuery对象之间还可以进行转换，这里就不详细介绍了，很简单。
 
-<h3>4、DOM操作</h3>
+##4、DOM操作
 
 DOM操作是JavaScript控制里最常用的操作之一。做前端，那必然会对页面显示的样式做各种各样的控制。这就离不开DOM操作。我将示例代码1做了一点点小修改，于是就诞生了示例代码2。我当时学jQuery的时候基本就是这样一点点研究这东西怎么用的。其实特别容易上手，有一些地方跟Java的语法比较像。
 
@@ -64,7 +68,7 @@ DOM操作中还有属性操作，样式操作以及文本操作。以<a href="ht
 
 样式操作、设置和获取HTML、文本的示例可以参考jQuery手册，不外乎使用几个方法，可能对一些值进行转换，也是比较简单的内容。不再举例了。
 
-<h3>5、事件绑定</h3>
+##5、事件绑定
 
 看代码示例3，<a href="http://www.pureweber.com/works/demos/jquery-kick-off/bind1.html" target="_blank">点我穿越</a>。一般的理解，我点击“伤不起有木有！”以后呢，这个列表中会再添加一个“伤不起”的项。这都没问题。我点新添加的“伤不起”，看看会不会再向列表中添加一个“伤不起”呢？
 
@@ -74,7 +78,7 @@ DOM操作中还有属性操作，样式操作以及文本操作。以<a href="ht
 
 在一个jQuery对象后面加上.click这样就给这个对象绑定了click事件。还可以显示地使用bind("click", function(){…})来绑定click事件。如果想要取消绑定，可以使用unbind方法。
 
-<h3>6、Ajax</h3>
+##6、Ajax
 
 Ajax全称Asynchronous JavaScript and XML，即异步JavaScript和XML。具体的技术细节这里就不研究了，直接说说jQuery中Ajax的使用。第一次作业里有的同学使用的iframe方法在当前页面载入其他页面的内容。有兴趣可以换成Ajax方法试试。
 
@@ -90,7 +94,7 @@ $.get()方法使用GET方法来进行异步请求，$.post()方法使用POST方�
 
 Ajax就说到这里不再深入了。有兴趣的话，可以继续研究如何使用XML或者JSON来传送数据。
 
-<h3>7、没讲到的东西</h3>
+##7、没讲到的东西
 
 动画没有讲，这部分我用到的不是很多，感觉和事件处理也十分相似，看看jQuery文档就能知道个大概。
 
@@ -100,7 +104,7 @@ XML、JSON会在Ajax中有涉及。XML就是另一种文档格式了，十分强
 
 各种细节问题。单纯分享经验嘛，细节问题就不讨论了，不然就变成讲课了。其实说着说着已经变成jQuery快速入门了。快餐一般都没营养，想吃点好的，多看书多研究吧！
 
-<h3>8、示例代码目录</h3>
+##8、示例代码目录
 
 <ul>
 	<li><a href="http://www.pureweber.com/works/demos/jquery-kick-off/basic.html" target="_blank">基本示例</a></li>

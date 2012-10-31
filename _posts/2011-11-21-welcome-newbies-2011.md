@@ -4,7 +4,10 @@ title: 欢迎PureWeber开发组新成员
 
 ---
 
-<a href="http://www.pureweber.com/wp-content/uploads/2011/10/welcome_mat.jpg"><img class="alignright size-medium wp-image-1187" title="welcome_mat" src="http://www.pureweber.com/wp-content/uploads/2011/10/welcome_mat-300x163.jpg" alt="" width="300" height="163" /></a>2011年10月29日，5名新同学正式加入PureWeber开发组，他们是：
+![欢迎](http://www.pureweber.com/wp-content/uploads/2011/10/welcome_mat.jpg)
+
+2011年10月29日，5名新同学正式加入PureWeber开发组，他们是：
+
 <ul>
 	<li>朱柯军</li>
 	<li>黄靖文</li>

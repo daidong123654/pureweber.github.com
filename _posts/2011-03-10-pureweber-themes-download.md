@@ -1,14 +1,16 @@
 ---
 layout: post
 title: PureWeber首批主题开放下载
+author: 段志岩
+github: dzy0451
 tags:
   - 7honeycomb
   - cyberycool
   - glovely
   - theme
   - wordpress
-  - '%e4%b8%8b%e8%bd%bd'
-  - '%e4%b8%bb%e9%a2%98'
+  - '主题'
+  - '下载'
 
 ---
 

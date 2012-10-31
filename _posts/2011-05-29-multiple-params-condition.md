@@ -1,6 +1,8 @@
 ---
 layout: post
-title: '使用不定个数的参数构造查询条件'
+title: '使用不定个数的字段构造查询条件'
+author: 田大龙
+github: glovenone
 tags:
   - array
   - join
@@ -34,28 +36,38 @@ tags:
 <h4>建立数据结构</h4>
 
 建立2个数组,一个用来存储get中的变量名,另一个存储要构造mysql查询语句中的参数名;
-<coolcode lang="php" linenum="off">$get_arrays = array(
+{% highlight php %}
+<?php
+$get_arrays = array(
         'id',
         'name',
         'gender',
 );
+//与前一个数组中的键值相对应,不过上面存的是get中的参数,这里是数据库中的名称.
 $db_arrays = array(
-        'user_id',	//与前一个数组中的键值相对应,不过上面存的是get中的参数,这里是数据库中的名称.
+        'user_id',
         'user_name',
         'user_gender',
-);</coolcode>
+);?>
+{% endhighlight %}
 
 <h4>构造查询串</h4>
 
 利用循环将传递过来的参数存到新的数组中.	这里我们要新建一个数组query_array,用来存储查询语句
 用到了两个函数:
-<coolcode lang="php" linenum="off">
-bool array_key_exists(mixed $key , array $search) //检查给定的键名或索引是否在数组中
+{% highlight php %}
+<?php
+//检查给定的键名或索引是否在数组中
+bool array_key_exists(mixed $key , array $search)
+//使用字符串$glue，将数组$pieces的所有元素连接起来
+string implode ( string $glue , array $pieces )
 join()// implode的别名
-string implode ( string $glue , array $pieces ) //将字符串$glue加入到数组$pieces中.</li>
-</coolcode>
+?>
+{% endhighlight %}
 
-<coolcode lang="php" linenum="off">foreach($get_arrays as $key =&gt; $value)
+{% highlight php %}
+<?php
+foreach($get_arrays as $key => $value)
 {
         //判断参数是否通过get方法传了过来
         $judge = array_key_exists($value, $_GET);
@@ -65,6 +77,7 @@ string implode ( string $glue , array $pieces ) //将字符串$glue加入到数�
                 //将要查询的变量及值用"="连接,写入数组中,此时array数组形如:$array=('id=1', 'gender=3');
         }
         $condition = join(" and ", $array);		// 使用"and"将各项条件连接起来
-}</coolcode>
+}?>
+{% endhighlight %}
 
 注：本文中的示例代码中未对输入进行转义，请勿应用在生产环境中。
