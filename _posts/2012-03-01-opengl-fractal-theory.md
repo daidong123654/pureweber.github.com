@@ -1,117 +1,151 @@
 ---
 layout: post
 title: 'OpenGL与分形几何'
+author: 黄靖文
 tags:
   - opengl
-  - '%e5%88%86%e5%bd%a2'
-  - '%e5%88%86%e5%bd%a2%e5%87%a0%e4%bd%95'
+  - '分形几何'
+  - '非线性科学'
+
+latex: true
 
 ---
 
-<div style="border: solid 1px #bbbbbb;padding: 5px;margin: 10px;background: #ececec">
-<h1 style="color: #808080">开场白</h1>
-<p style="padding-left: 30px;padding-right: 30px">今天跟大家做的这个分享会跟以往不同，今天我不跟大家讲技术。以我现在的功力，不具备什么特殊的技术，都是花拳绣腿，都是基本功，无非就是CSS HTML什么的，尤其今天学长们都在下面坐着，对他们来说我讲这些东西就好比回忆儿时的经历，我说我讲技术，那属于不知好歹。</p>
-<p style="padding-left: 30px;padding-right: 30px">事实上我原打算真就是讲个什么什么技术的了，尤其在听过上几次的分享会，更觉得理所当然应该讲个什么技术。不过上个星期段哥放出来的话，迫使我不得不改变我原来的策略。所以我不讲技术，你看我多坦诚<span style="color: #707070"> </span>。</p>
-<p style="padding-left: 30px;padding-right: 30px">今天的思路是这样的，题目是“OpenGL-分行几何-非线性科学”，以这三个东西为主线，讲述我这一学期的关于他们的经历，在讲述的过程中，我会顺便跟大家分享一下我对他们的看法和理解。我不给你们讲课，我讲故事。</p>
-<p style="padding-left: 30px;padding-right: 30px">那我们开始吧：</p>
 
-</div>
-<div style="border: solid 1px #bbbbbb;padding: 5px;margin: 10px;background: #ececec">
-<h1><span style="color: #707070">第一部分 - OpenGL</span></h1>
-<p style="padding-left: 30px;padding-right: 30px">事情发生在七个月之前，也就是上学期的中下旬。创新研修大家都知道吧。我那时点正，抢上了最后一个，就是苏小红老师的自然景物与分型艺术的那个课。隔壁寝室的仁哥也选上了，那时候还没有分寝室，后来分完寝室我们就在一个寝室了。两天之后苏老师召集我们十个人讲了一下上课的要求还有作业的事，当时也没全来，要求很简单，来不来都行，作业呢就是交个大纲上要求的程序就可以合格了。后来经过七个月的心理准备，终于在上周我跟仁哥开始了这项任务。开始的时候一看大纲当时仁哥就急了：“这咋办?下周就要交作业了，咋办交不交?”，我说那怎么办也不能不交作业啊，再毕不了业，那不就严重了么，那实在不行就得我来呗。于是我俩分工很快就明确了，我负责写代码，他负责审阅我的代码。</p>
-<p style="padding-left: 30px;padding-right: 30px">我当时在机房犯愁老半天，这一学期的课，一周时间我怎么才能把它编出来？那没办法，整不出来你也得整啊，一步一步走呗。于是我就开始在网上搜OpenGL，这个东西怎么用，当时不知道OpenGL具体是什么，就知道用它能做这个程序。看了好半天，稍微有点那个意思，当时在网上讲OpenGL提的最多的就是说OpenGL是个“状态机”，这也是我第一次听见这个名词。什么是状态机呢？我当时翻了不少技术科普的博客。我现在听到状态机这个词，脑海里浮现出来的是一个类似流程图一样画面，每一个方框都是这个状态机，它按照连线的指示，从哪里走到哪里然后又走到哪里。一个状态机，我给它一个指令，他会从一个坐标移动到另一个坐标，这样不同的指令会让他做不同的事，但最终的目的是让他走到另一个状态。对OpenGL它来说，状态就是当时它的复杂的状态，比如说现在已经准备好了要画点了啊，比如说现在已经准备好颜色了啊，就等着你下指令了，你一发出画图的箭头我就会画这个颜色...；而指令就是他自带的函数，就像是操纵杆，你可以通过这些操纵杆来控制这台机器向左走还是向右走。这个状态机像是一个机器人，机器嘛，你来控制它怎么走，来改变状态。在我看来，说白了就是一个大的全局变量，一个全局的节点，一个全局的对象，你通过他的成员函数，来该操纵它只不过改变的是状态。它有记忆的能力，能够记住自己当前的状态。它可以接收输入，根据输入的内容和自己的当前的状态，修改自己的状态，并且可以得到输出。我们的电脑就是一个状态机，典型的状态机。</p>
-<p style="padding-left: 30px;padding-right: 30px"><span style="color: #707070">/* 打开终端，进入目录，vi源代码 */</span></p>
-<p style="padding-left: 30px;padding-right: 30px">这就是我写出来的代码，当时看书的时候，对这句话特别感兴趣：
-<span style="color: #707070">/* 对下面四行代码用p命令跟其他代码分开来，然后Shift+v高亮显示 */</span></p>
+## 开场白
 
-<div style="padding-left: 30px;padding-right: 30px">[coolcode lang="cpp"]glBegin(GL_POINTS);
+今天跟大家做的这个分享会跟以往不同，今天我不跟大家讲技术。以我现在的功力，不具备什么特殊的技术，都是花拳绣腿，都是基本功，无非就是CSS HTML什么的，尤其今天学长们都在下面坐着，对他们来说我讲这些东西就好比回忆儿时的经历，我说我讲技术，那属于不知好歹。
+
+事实上我原打算真就是讲个什么什么技术的了，尤其在听过上几次的分享会，更觉得理所当然应该讲个什么技术。不过上个星期段哥放出来的话，迫使我不得不改变我原来的策略。所以我不讲技术，你看我多坦诚。
+
+今天的思路是这样的，题目是“OpenGL-分行几何-非线性科学”，以这三个东西为主线，讲述我这一学期的关于他们的经历，在讲述的过程中，我会顺便跟大家分享一下我对他们的看法和理解。我不给你们讲课，我讲故事。
+
+那我们开始吧：
+
+## 第一部分 - OpenGL
+
+事情发生在七个月之前，也就是上学期的中下旬。创新研修大家都知道吧。我那时点正，抢上了最后一个，就是苏小红老师的自然景物与分型艺术的那个课。隔壁寝室的仁哥也选上了，那时候还没有分寝室，后来分完寝室我们就在一个寝室了。两天之后苏老师召集我们十个人讲了一下上课的要求还有作业的事，当时也没全来，要求很简单，来不来都行，作业呢就是交个大纲上要求的程序就可以合格了。后来经过七个月的心理准备，终于在上周我跟仁哥开始了这项任务。开始的时候一看大纲当时仁哥就急了：“这咋办?下周就要交作业了，咋办交不交?”，我说那怎么办也不能不交作业啊，再毕不了业，那不就严重了么，那实在不行就得我来呗。于是我俩分工很快就明确了，我负责写代码，他负责审阅我的代码。
+
+我当时在机房犯愁老半天，这一学期的课，一周时间我怎么才能把它编出来？那没办法，整不出来你也得整啊，一步一步走呗。于是我就开始在网上搜OpenGL，这个东西怎么用，当时不知道OpenGL具体是什么，就知道用它能做这个程序。看了好半天，稍微有点那个意思，当时在网上讲OpenGL提的最多的就是说OpenGL是个“状态机”，这也是我第一次听见这个名词。什么是状态机呢？我当时翻了不少技术科普的博客。我现在听到状态机这个词，脑海里浮现出来的是一个类似流程图一样画面，每一个方框都是这个状态机，它按照连线的指示，从哪里走到哪里然后又走到哪里。一个状态机，我给它一个指令，他会从一个坐标移动到另一个坐标，这样不同的指令会让他做不同的事，但最终的目的是让他走到另一个状态。对OpenGL它来说，状态就是当时它的复杂的状态，比如说现在已经准备好了要画点了啊，比如说现在已经准备好颜色了啊，就等着你下指令了，你一发出画图的箭头我就会画这个颜色...；而指令就是他自带的函数，就像是操纵杆，你可以通过这些操纵杆来控制这台机器向左走还是向右走。这个状态机像是一个机器人，机器嘛，你来控制它怎么走，来改变状态。在我看来，说白了就是一个大的全局变量，一个全局的节点，一个全局的对象，你通过他的成员函数，来该操纵它只不过改变的是状态。它有记忆的能力，能够记住自己当前的状态。它可以接收输入，根据输入的内容和自己的当前的状态，修改自己的状态，并且可以得到输出。我们的电脑就是一个状态机，典型的状态机。
+
+(打开终端，进入目录，vi源代码)
+
+这就是我写出来的代码，当时看书的时候，对这句话特别感兴趣：
+
+(对下面四行代码用p命令跟其他代码分开来，然后Shift+v高亮显示)
+
+{% highlight cpp %}
+glBegin(GL_POINTS);
 glColor3us(red[i][j], green[i][j], blue[i][j]);
 glVertex2d(x, y);
 glEnd();
-[/coolcode]</div>
-<p style="padding-left: 30px;padding-right: 30px">这四行代码，第一句这个说的是，下面我要画点的方式是GL_POINTS模式的，就是说画出来的是一个一个单点，不连线也不什么的。这个值是个宏，是系统自带的。如果你选别的，你指定了几个点，OpenGL可能就会把这几个点连成一条折线，或者是连成一个多边形。第二句话<span style="color: #707070"> </span>，说的是设置点的颜色，参数就是我们常说的RGB。这里有件事很有意思，我不知道是不是别的语言也有过这样的类似的措施，就是你看函数名这后面这个后缀那个3us<span style="color: #707070"> </span>,我一直觉这个语言这个地方设计得很有意思，3代表参数的个数，us代表参数的类型，比如说如果我把3us改成2sd这个函数那我就得给他传两个参数，而且这两个参数都得是double，这个d，就是double的意思，要是<span style="color: #707070"> </span>8f就得添八个float变量，酱紫<span style="color: #707070"> </span>。第三刚也是<span style="color: #707070"> </span>，你看我用2d<span style="color: #707070"> </span>我这儿就两个参数吧<span style="color: #707070"> </span>，这两个参数声明的时候都是double类型<span style="color: #707070"> </span>。这个函数画出一个点，坐标值是x y，我们现在看到的画布是这样分割的，零零点在中间，从左到右是负一到正一，从上到下也是，不过这个无所谓，这都可以改。<span style="color: #707070"> </span>你看到我把中间这两句话都缩进了<span style="color: #707070"> </span>，他们是四个函数，我为什么要把他们俩缩进了呢？按理说这四句话是四个并列的函数，我不应该给他们俩缩进。当时也是看书上在这个地方缩进了，在书上看例子的时候，就这句话一下子让我明白它这个OpenGL了是怎么工作的。第一句glBegin(GL_POINTS);这个操作让他进入画点的准备状态，接下来两句话是进行画点，最后画点结束，退出状态，这就好像一个机器人，你让他到秋林，就必须首先让它走到西大桥<span style="color: #707070"> </span>，然后才能让他往左拐进屋买东西<span style="color: #707070"> </span>，如果它还没有走到西大桥，往左拐就不一定到哪了，而且去秋林卖完东西还要回来c。这就是所谓状态机原理，语句不是线性执行的，他们是有先后条件的，是有关系的。同样还有这段:</p>
-<p style="padding-left: 30px;padding-right: 30px"><span style="color: #707070">/* 在代码里找到下面三句用p命令跟其他代码分开来，然后Shift+v高亮显示 */</span></p>
+{% endhighlight %}
 
-<div style="padding-left: 30px;padding-right: 30px">[coolcode lang="cpp"]glutDisplayFunc(&amp;display);
-glutMouseFunc(&amp;mouse);
-glutMainLoop();[/coolcode]</div>
-<p style="padding-left: 30px;font-family: courier;padding-right: 30px">前两句话的参数都是函数的地址，其实这前两句话都是对第三句话的设置，第三句话叫做主循环，第一句说的是如果在主循环里要显示图片，那么就掉用&amp;display所指向的函数来显示，而第二句是说，若在主循环内发生鼠标事件，则调用&amp;mouse所指向的函数处理。这就是这个自动机的工作方式。另外鼠标时间我比较感兴趣，以前老听别人说鼠标事件鼠标时间，不是很理解，这回我就真切的体验了一回，他试着样的。所谓鼠标事件就是鼠标在窗口上点击，这里说的点击包括左键右键而且还包括滚轮的上下滚动，如果说事件的话，那它应该还包括你在这个窗口内的移动等等所有的只要是在这个窗口里的，鼠标的动作，都叫鼠标时间。在这个窗口里的所有的鼠标的动作，也就是鼠标事件，都会被当成参数传给这个mouse函数，那这些动作是怎么传给函数的呢？我觉得这就是大多数语言实现鼠标动作捕捉的方法。在OpenGL里是这样的，任何一个鼠标动作都会被解释成为数，传给负责处理的函数。每发生一次鼠标事件，都会调用一次鼠标函数，而一种动作对应一个数。比如说：<span style="color: #707070">
-</span></p>
-<p style="padding-left: 30px;font-family: courier;padding-right: 30px"><span style="color: #707070">/*在鼠标函数添加一句话，修改成这样：*/</span></p>
+这四行代码，第一句这个说的是，下面我要画点的方式是GL_POINTS模式的，就是说画出来的是一个一个单点，不连线也不什么的。这个值是个宏，是系统自带的。如果你选别的，你指定了几个点，OpenGL可能就会把这几个点连成一条折线，或者是连成一个多边形。第二句话，说的是设置点的颜色，参数就是我们常说的RGB。这里有件事很有意思，我不知道是不是别的语言也有过这样的类似的措施，就是你看函数名这后面这个后缀那个3us,我一直觉这个语言这个地方设计得很有意思，3代表参数的个数，us代表参数的类型，比如说如果我把3us改成2sd这个函数那我就得给他传两个参数，而且这两个参数都得是double，这个d，就是double的意思，要是8f就得添八个float变量，酱紫。第三刚也是，你看我用2d我这儿就两个参数吧，这两个参数声明的时候都是double类型。这个函数画出一个点，坐标值是x y，我们现在看到的画布是这样分割的，零零点在中间，从左到右是负一到正一，从上到下也是，不过这个无所谓，这都可以改。你看到我把中间这两句话都缩进了，他们是四个函数，我为什么要把他们俩缩进了呢？按理说这四句话是四个并列的函数，我不应该给他们俩缩进。当时也是看书上在这个地方缩进了，在书上看例子的时候，就这句话一下子让我明白它这个OpenGL了是怎么工作的。第一句glBegin(GL_POINTS);这个操作让他进入画点的准备状态，接下来两句话是进行画点，最后画点结束，退出状态，这就好像一个机器人，你让他到秋林，就必须首先让它走到西大桥，然后才能让他往左拐进屋买东西，如果它还没有走到西大桥，往左拐就不一定到哪了，而且去秋林卖完东西还要回来c。这就是所谓状态机原理，语句不是线性执行的，他们是有先后条件的，是有关系的。同样还有这段:
 
-<div style="padding-left: 30px;padding-right: 30px">[coolcode lang="cpp"]
-/* mouse:  display the 坐标 you clicked */
+(在代码里找到下面三句用p命令跟其他代码分开来，然后Shift+v高亮显示)
+
+{% highlight cpp %}
+glutDisplayFunc(&display);
+glutMouseFunc(&mouse);
+glutMainLoop();
+{% endhighlight %}
+
+前两句话的参数都是函数的地址，其实这前两句话都是对第三句话的设置，第三句话叫做主循环，第一句说的是如果在主循环里要显示图片，那么就掉用&amp;display所指向的函数来显示，而第二句是说，若在主循环内发生鼠标事件，则调用&amp;mouse所指向的函数处理。这就是这个自动机的工作方式。另外鼠标时间我比较感兴趣，以前老听别人说鼠标事件鼠标时间，不是很理解，这回我就真切的体验了一回，他试着样的。所谓鼠标事件就是鼠标在窗口上点击，这里说的点击包括左键右键而且还包括滚轮的上下滚动，如果说事件的话，那它应该还包括你在这个窗口内的移动等等所有的只要是在这个窗口里的，鼠标的动作，都叫鼠标时间。在这个窗口里的所有的鼠标的动作，也就是鼠标事件，都会被当成参数传给这个mouse函数，那这些动作是怎么传给函数的呢？我觉得这就是大多数语言实现鼠标动作捕捉的方法。在OpenGL里是这样的，任何一个鼠标动作都会被解释成为数，传给负责处理的函数。每发生一次鼠标事件，都会调用一次鼠标函数，而一种动作对应一个数。比如说：
+
+(在鼠标函数添加一句话，修改成这样:)
+
+{% highlight cpp %}
+/* mouse:  display the 坐标 you clicked 
 void mouse(int button, int state, int x, int y)
 {
-printf("x:%d  y:%d  button:%d  state:%d\n", x, y, button, state); /* 添加这句话 */
-julia(x, y);
-return;
+	printf("x:%d  y:%d  button:%d  state:%d\n", x, y, button, state); // 添加这句话 
+	julia(x, y);
+	return;
 }
-[/coolcode]</div>
-<p style="padding-left: 30px;font-family: courier;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px"><span style="color: #707070">/* 编译运行，在出现的画布上来回左击右击，滚轮上下翻动，在右侧的命令行上会输出相应的参数，下面讲解参数 */</span></p>
+{% endhighlight %}
+
+(编译运行，在出现的画布上来回左击右击，滚轮上下翻动，在右侧的命令行上会输出相应的参数，下面讲解参数 )
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/第一次显示参数-300x187.png)
+
+那，现在你就明白了，鼠标事件怎么是实现的呢，其实就是用一组数来代表一种事件，一个事件就对应一个数，这样来区分和表示，标志事件。现在我在画布上点击和移动滚轮，你们可以在运行终端看到一行一行的输出，这些输出是我刚才添在mouse函数里面的，在每次调用画图函数之前，都会将接收的参数输出来看看。现在我们重来，一个一个分析。
 
 
-[caption id="attachment_1558" align="alignleft" width="299" caption="第一次显示参数"]<a rel="attachment wp-att-1558" href="http://www.pureweber.com/article/opengl-fractal-theory/%e7%ac%ac%e4%b8%80%e6%ac%a1%e6%98%be%e7%a4%ba%e5%8f%82%e6%95%b0/"><img src="http://www.pureweber.com/wp-content/uploads/2012/01/第一次显示参数-300x187.png" alt="不知为什么 这张图片看不到" width="299" height="186" /></a>[/caption]
-<p style="padding-left: 330px;padding-right: 30px">那，现在你就明白了，鼠标事件怎么是实现的呢，其实就是用一组数来代表一种事件，一个事件就对应一个数，这样来区分和表示，标志事件。现在我在画布上点击和移动滚轮，你们可以在运行终端看到一行一行的输出，这些输出是我刚才添在mouse函数里面的，在每次调用画图函数之前，都会将接收的参数输出来看看。现在我们重来，一个一个分析。</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1641" href="http://www.pureweber.com/article/opengl-fractal-theory/%e5%b7%a6%e9%94%ae%e6%8c%89%e4%b8%8b%e5%bc%b9%e8%b5%b7/"><img class="size-full wp-image-1641 alignright" src="http://www.pureweber.com/wp-content/uploads/2012/01/左键按下弹起.png" alt="不知为什么，这张图片看不到" width="333" height="202" /></a></p>
-<p style="padding-left: 30px;padding-right: 400px">现在我按下左键，你看右面，它的button参数是0，看来在这里左键用来代表。他输出的是两行说明这个mouse函数调用了两次，可我只按了一次，可见按下与弹起都是鼠标事件，每次都掉用一次mouse函数，state参数就是这个相关的数值，按下的时候是0，弹起的时候他为1，这就是一次点击。</p>
-<p style="padding-left: 30px;padding-right: 400px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1650" href="http://www.pureweber.com/article/opengl-fractal-theory/%e5%8f%b3%e9%94%ae%e6%8c%89%e4%b8%8b%e5%bc%b9%e8%b5%b7/"><img class="alignleft size-full wp-image-1650" src="http://www.pureweber.com/wp-content/uploads/2012/01/右键按下弹起.png" alt="" width="333" height="202" /></a></p>
-<p style="margin-left: 380px;padding-right: 30px"><span style="color: #707070">/* 右键按下弹起 */</span></p>
-<p style="padding-left: 380px;padding-right: 30px">同样试一下右键。看来它用2来代表右键。</p>
-<p style="padding-left: 380px;padding-right: 30px">接下来我们看滚轮的动作是如何表示的。</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1681" href="http://www.pureweber.com/article/opengl-fractal-theory/%e6%bb%9a%e8%bd%ae%e5%90%91%e4%b8%8a%e5%90%91%e4%b8%8b/"><img class="size-full wp-image-1681 alignright" src="http://www.pureweber.com/wp-content/uploads/2012/01/滚轮向上向下.png" alt="" width="333" height="202" /></a></p>
-<p style="padding-left: 30px;padding-right: 30px"><span style="color: #707070">/* 滚轮向上一次再换个位置向下一次 */</span></p>
-<p style="padding-left: 30px;padding-right: 30px">然后我们看看滚轮动作他是怎么解释的。我现在就向上翻滚轮，你们可以看到它是用3来代表向上的滚轮。同样下翻，发现它使用4来代表向下的滚轮。这样一来就可以解释滚轮的动作了。</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">那，这就是鼠标事件了，这确实是一个捕捉事件的好方法，起码在我第一次接触鼠标事件的时候我是这样感觉的。</p>
+![](http://www.pureweber.com/wp-content/uploads/2012/01/左键按下弹起.png)
 
-</div>
-<div style="border: solid 1px #bbbbbb;padding: 5px;margin: 10px;background: #ececec">
-<h1 style="color: #808080">第二部分 - 分形</h1>
-<p style="padding-left: 30px;padding-right: 30px">OpenGL就现说到这吧，这是OpenGL刚刚会始，然后蛋疼的是后头，当我看这个教材的时候我越看越觉得心跳加速，分型几何学这一章涉及到欧氏几何，拓扑几何学，复变函数，仿射变换，微积分，线性数学，形式语言与子自动机...，尼玛这些都是各个数学专业的看家神课啊！不过好在看进去之后还有点点明白。用到的知识倒不是很多，不过这个过程也告诉我了一件事，那就是无论什么都会涉及到数学，多复杂的数学都能用的上，幸运的是数学并不复杂，我想到大一的时候我们工数老师李冬松说过，“我们上大学的时候我们老师就跟我们说过这样一句话，我非常同意他的观点，他说数学不能复杂，数学是吃苹果，分鸭梨，吃出来的学问，他怎么能复杂呢?”,他还说过：“一本书，你要看他符号特多，名词都不认识，跟牛津辞典那么厚，你别怕，这本书很容易，她之所以用那么多名词，引用那么多符号只是为了让话更简洁，其实用大白话也能说明白，就是说得比较费劲，往往你要把他的概念能弄懂，那这本书你基本就学完了，因为这种学问本来也没什么内容，你要面临的主要困难就是那些概念和符号，其实他们之间的逻辑极其直白，极其简单。而如果你看见一本书它说的每句话你都能看懂，尤其是还就薄薄几百页，那这本书你不用看了，你没点学问是看不懂的，你比如说费马定理，都能听懂吧，小学生都能明白。这种东西你别碰，几百年都没人能学明白。”。我当时就觉得冬松简直太有道了，说得太有道理了，我现在就是这种情况，只要你脚一沾水，这汤浑水就开始沉淀了，就从你看第一句话开始，这门学问就在以一个稳恒的速度澄清。那我们现在来说说这个分形究竟是什么。</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1726" href="http://www.pureweber.com/article/opengl-fractal-theory/britain-fractal-coastline-200km/"><img class="size-full wp-image-1726 alignright" src="http://www.pureweber.com/wp-content/uploads/2012/01/Britain-fractal-coastline-200km.png" alt="" width="112" height="216" /></a><a rel="attachment wp-att-1733" href="http://www.pureweber.com/article/opengl-fractal-theory/britain-fractal-coastline-100km/"><img class="size-full wp-image-1733 alignright" src="http://www.pureweber.com/wp-content/uploads/2012/01/Britain-fractal-coastline-100km.png" alt="" width="112" height="216" /></a><a rel="attachment wp-att-1734" href="http://www.pureweber.com/article/opengl-fractal-theory/britain-fractal-coastline-50km/"><img class="size-full wp-image-1734 alignright" src="http://www.pureweber.com/wp-content/uploads/2012/01/Britain-fractal-coastline-50km.png" alt="" width="112" height="216" /></a>事情缘起于一次英国海岸线的测量，当时人们对它的测量发现，如果我换一个精确一点的尺来测量那么它的长度会稍微大一些，这很好理解，因为海岸线是弯的嘛，如果用精度更高一些的尺来测量肯定就会更接近于真实值，随着尺度的减小测量值会趋于海岸线的真实值。于是随着人们更精确的测量，海岸线的测量值确实在一点一点的增大，增大的幅度也一点一点的在减小，但是计算结果发现，海岸线的长度并没有收敛于一个常数值，增长确实在变得缓慢，但是他的增长没有停止，他的趋近值是正无穷。这让全世界震惊了。提出这个问题的人就是我们分型的鼻祖--曼德勃罗（B.B.Mandelbrot）。最后得出的是一个戏剧性的结果：英国海岸线的长度是不确定的！后来，分形几何学就以此展开了。</p>
-<p style="padding-left: 30px;padding-right: 30px">分形这个东西最令我感兴趣的是他的维度，他不是一个整数的整数的维度，你比如说一个正方形，你可以所他是二维的，一个正方体你可以说他是三维的，但是一个典型分形的维度往往不是整数的，比如Koch曲线就是1.2几维的，还不是个有理数，它是无理数。正常来说我们的维度怎么确定？假设有一根单位长度为一维的线段L/* 在黑板上画一条线段作为L */，若将它的边长扩大到原来的3倍，则可得到3个原始对象（单位长度为A），也就是 3*L=3^2*L/* 在黑板上写公式 */。再看二维的情况，二维平面上一个边长为单位长度的正方形P/* 画 */，若将其边长扩大到原来的3倍/* 画 */，则可得到9个正方形/* 切成九个小的正方形 */，既有：9*P=3^2*P。对于三维空间中的一个边长为单位一的正方体V/* 画 */，若将其边长扩大到原来的三倍，则可得到27个立方体，即有：s7*V=3^2*V。按照这个规律有这样一个关系，维数D个放大倍数B相乘就是放大的倍数，/* 写公式：M = B^D */，两边取对数变形为D = lnM / lnB。这是从放大（或者说‘填充’）的角度看问题，还可以从他的反面即细分（或者说“铺砌”）的角度去看。设N为每一步细分的数目，S为细分时缩放的倍数，则分数维度D可以定义为：D = lnN / ln（1/S）。现在我们来计算刚才说过的Koch曲线。</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1749" href="http://www.pureweber.com/article/opengl-fractal-theory/koch/"><img class="size-full wp-image-1749 alignleft" src="http://www.pureweber.com/wp-content/uploads/2012/01/Koch-.jpg" alt="" width="194" height="265" /></a>[coolcode lang="cpp"]
-给定线段AB，Koch曲线可以由以下步骤生成：
-将线段分成三等份（AC,CD,DB）
-以CD为底，向外（内外随意）画一个等边三角形DMC
-将线段CD移去
-分别对AC,CM,MD,DB重复1~3。
-[/coolcode]</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px;text-align: center"><a rel="attachment wp-att-1760" href="http://www.pureweber.com/article/opengl-fractal-theory/koch%e5%8a%a8%e7%94%bb/"><img class="size-full wp-image-1760 aligncenter" src="http://www.pureweber.com/wp-content/uploads/2012/01/Koch动画.gif" alt="" width="200" height="100" /></a></p>
-<p style="padding-left: 30px">就是说它每一步细分线段的个数为4，而细分时缩放的倍数为1/3，因此，Koch曲线的分数维为：D = ln4 / ln3 = 1.2619...。如果按照欧氏几何的方法，将一条线段四等分，则 N=4，S=1/4，D=1</p>
-<p style="padding-left: 30px">那接下来就是Mandelbrot集合和Julia集合。这两个集合都是在基于同一个复变函数：f(z) = z^2 + c。只不过屏幕上没一点对应的参数不一样。Mandelbrot是这样的，像素上每一个点对应的是函数里面的c,而Julia集，每个像素对应的是一个z0，就是z的初始值。上面这个函数，在无穷迭代的过程中，z的情况是我们感兴趣的，初始条件的不同也就死Z0的不同，以及c值额不同，会造成z的变化情况趋向于三个极端，一种是z越变与大，也就是他的模越变越大没有上界，一种情况是，他的模越编越小，最终趋于零，还有一种情况是随着他不断的自我迭代，z的模会进行一个周期的变化，有上界和下界。在计算机中，只会生成发散和收敛两种情况，然而我们却能看到中间那种情况，因为发散和收敛的点画出来的中间的边界就是这种情况。接下来的问题就是怎么判定他的颜色呢，怎么规定它的颜色。教材上的方法是通过设置最大迭代次数N和判断收敛于发散用的阀值M里对屏幕上的点进行着色。就是说对那些迭代N次，而z的模认为超过阀值M，则认为z是受脸的；反之若迭代k次之后，z的模就开始大于M了，那么就判定他是发散的，然后根据这个k值来定义他的颜色，不同的公式会画出来不同的颜色，我自己在试颜色的时候就感觉老过瘾了...。最终确定这个颜色比较好看：</p>
+现在我按下左键，你看右面，它的button参数是0，看来在这里左键用来代表。他输出的是两行说明这个mouse函数调用了两次，可我只按了一次，可见按下与弹起都是鼠标事件，每次都掉用一次mouse函数，state参数就是这个相关的数值，按下的时候是0，弹起的时候他为1，这就是一次点击。
 
-<div style="padding-left: 30px;padding-right: 30px">[coolcode lang="cpp"]
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/右键按下弹起.png)
+
+(右键按下弹起)
+
+同样试一下右键。看来它用2来代表右键。
+
+接下来我们看滚轮的动作是如何表示的。
+
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/滚轮向上向下.png)
+
+(滚轮向上一次再换个位置向下一次)
+
+然后我们看看滚轮动作他是怎么解释的。我现在就向上翻滚轮，你们可以看到它是用3来代表向上的滚轮。同样下翻，发现它使用4来代表向下的滚轮。这样一来就可以解释滚轮的动作了。
+
+那，这就是鼠标事件了，这确实是一个捕捉事件的好方法，起码在我第一次接触鼠标事件的时候我是这样感觉的。
+
+## 第二部分 - 分形
+
+OpenGL就现说到这吧，这是OpenGL刚刚会始，然后蛋疼的是后头，当我看这个教材的时候我越看越觉得心跳加速，分型几何学这一章涉及到欧氏几何，拓扑几何学，复变函数，仿射变换，微积分，线性数学，形式语言与子自动机...，尼玛这些都是各个数学专业的看家神课啊！不过好在看进去之后还有点点明白。用到的知识倒不是很多，不过这个过程也告诉我了一件事，那就是无论什么都会涉及到数学，多复杂的数学都能用的上，幸运的是数学并不复杂，我想到大一的时候我们工数老师李冬松说过，“我们上大学的时候我们老师就跟我们说过这样一句话，我非常同意他的观点，他说数学不能复杂，数学是吃苹果，分鸭梨，吃出来的学问，他怎么能复杂呢?”,他还说过：“一本书，你要看他符号特多，名词都不认识，跟牛津辞典那么厚，你别怕，这本书很容易，她之所以用那么多名词，引用那么多符号只是为了让话更简洁，其实用大白话也能说明白，就是说得比较费劲，往往你要把他的概念能弄懂，那这本书你基本就学完了，因为这种学问本来也没什么内容，你要面临的主要困难就是那些概念和符号，其实他们之间的逻辑极其直白，极其简单。而如果你看见一本书它说的每句话你都能看懂，尤其是还就薄薄几百页，那这本书你不用看了，你没点学问是看不懂的，你比如说费马定理，都能听懂吧，小学生都能明白。这种东西你别碰，几百年都没人能学明白。”。我当时就觉得冬松简直太有道了，说得太有道理了，我现在就是这种情况，只要你脚一沾水，这汤浑水就开始沉淀了，就从你看第一句话开始，这门学问就在以一个稳恒的速度澄清。那我们现在来说说这个分形究竟是什么。
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/Britain-fractal-coastline-200km.png)
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/Britain-fractal-coastline-100km.png)
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/Britain-fractal-coastline-50km.png)
+
+事情缘起于一次英国海岸线的测量，当时人们对它的测量发现，如果我换一个精确一点的尺来测量那么它的长度会稍微大一些，这很好理解，因为海岸线是弯的嘛，如果用精度更高一些的尺来测量肯定就会更接近于真实值，随着尺度的减小测量值会趋于海岸线的真实值。于是随着人们更精确的测量，海岸线的测量值确实在一点一点的增大，增大的幅度也一点一点的在减小，但是计算结果发现，海岸线的长度并没有收敛于一个常数值，增长确实在变得缓慢，但是他的增长没有停止，他的趋近值是正无穷。这让全世界震惊了。提出这个问题的人就是我们分型的鼻祖--曼德勃罗（B.B.Mandelbrot）。最后得出的是一个戏剧性的结果：英国海岸线的长度是不确定的！后来，分形几何学就以此展开了。
+
+分形这个东西最令我感兴趣的是他的维度，他不是一个整数的整数的维度，你比如说一个正方形，你可以所他是二维的，一个正方体你可以说他是三维的，但是一个典型分形的维度往往不是整数的，比如Koch曲线就是1.2几维的，还不是个有理数，它是无理数。正常来说我们的维度怎么确定？假设有一根单位长度为一维的线段L
+若将它的边长扩大到原来的3倍，则可得到3个原始对象（单位长度为A），也就是 `3*L=3^2*L` 再看二维的情况，二维平面上一个边长为单位长度的正方形P.
+若将其边长扩大到原来的3倍，则可得到9个正方形，既有： `9*P=3^2*P`
+
+对于三维空间中的一个边长为单位一的正方体V，若将其边长扩大到原来的三倍，则可得到27个立方体，即有：`s7*V=3^2*V`。按照这个规律有这样一个关系，维数D个放大倍数B相乘就是放大的倍数，两边取对数变形为`D = lnM / lnB`。这是从放大（或者说‘填充’）的角度看问题，还可以从他的反面即细分（或者说“铺砌”）的角度去看。设N为每一步细分的数目，S为细分时缩放的倍数，则分数维度D可以定义为：`D = lnN / ln（1/S）`。现在我们来计算刚才说过的Koch曲线。
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/Koch-.jpg)
+
+	给定线段AB，Koch曲线可以由以下步骤生成：
+	将线段分成三等份（AC,CD,DB）
+	以CD为底，向外（内外随意）画一个等边三角形DMC
+	将线段CD移去
+	分别对AC,CM,MD,DB重复1~3。
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/Koch动画.gif)
+
+就是说它每一步细分线段的个数为4，而细分时缩放的倍数为1/3，因此，Koch曲线的分数维为：`D = ln4 / ln3 = 1.2619...`。如果按照欧氏几何的方法，将一条线段四等分，则 `N=4，S=1/4，D=1`
+
+那接下来就是Mandelbrot集合和Julia集合。这两个集合都是在基于同一个复变函数：`f(z) = z^2 + c`。只不过屏幕上没一点对应的参数不一样。Mandelbrot是这样的，像素上每一个点对应的是函数里面的c,而Julia集，每个像素对应的是一个z0，就是z的初始值。上面这个函数，在无穷迭代的过程中，z的情况是我们感兴趣的，初始条件的不同也就死Z0的不同，以及c值额不同，会造成z的变化情况趋向于三个极端，一种是z越变与大，也就是他的模越变越大没有上界，一种情况是，他的模越编越小，最终趋于零，还有一种情况是随着他不断的自我迭代，z的模会进行一个周期的变化，有上界和下界。在计算机中，只会生成发散和收敛两种情况，然而我们却能看到中间那种情况，因为发散和收敛的点画出来的中间的边界就是这种情况。接下来的问题就是怎么判定他的颜色呢，怎么规定它的颜色。教材上的方法是通过设置最大迭代次数N和判断收敛于发散用的阀值M里对屏幕上的点进行着色。就是说对那些迭代N次，而z的模认为超过阀值M，则认为z是受脸的；反之若迭代k次之后，z的模就开始大于M了，那么就判定他是发散的，然后根据这个k值来定义他的颜色，不同的公式会画出来不同的颜色，我自己在试颜色的时候就感觉老过瘾了...。最终确定这个颜色比较好看：
+
+{% highlight cpp %}
 red[i][j] = exp(k);
 blue[i][j] = sin(k);
 green[i][j] = k * k * k + k * k + k;
-[/coolcode]</div>
-<p style="padding-left: 30px">这需要一点想象力，但关键是运气。结果出来的图像就是这样的了：</p>
-<p style="padding-left: 30px;text-align: center"><a rel="attachment wp-att-1781" href="http://www.pureweber.com/article/opengl-fractal-theory/mandelbrot%e9%9b%86/"></a><a rel="attachment wp-att-1782" href="http://www.pureweber.com/article/opengl-fractal-theory/mandelbrot%e9%9b%86-2/"><img class="aligncenter size-full wp-image-1782" src="http://www.pureweber.com/wp-content/uploads/2012/01/Mandelbrot集1.png" alt="" width="410" height="427" /></a></p>
-<p style="padding-left: 30px">当时写的第一个程序是这样的，首次运行会给你显示一个Mandelbrot集，然后你用鼠标在任意位置点击（左右键都可以，滚轮也可以），就会生成这一点对应的Julia集。代码在这里：</p>
+{% endhighlight %}
 
-<div style="padding-left: 30px;padding-right: 30px">[coolcode lang="cpp"]
+这需要一点想象力，但关键是运气。结果出来的图像就是这样的了：
+
+![](http://www.pureweber.com/wp-content/uploads/2012/01/Mandelbrot集1.png)
+
+当时写的第一个程序是这样的，首次运行会给你显示一个Mandelbrot集，然后你用鼠标在任意位置点击（左右键都可以，滚轮也可以），就会生成这一点对应的Julia集。代码在这里：
+
+{% highlight cpp %}
 /******************************************************************
 * 用复迭代方法程序设计实现不同参数条件下的Mandelbrot集绘制       *
 * 并通过鼠标选择Mandelbrot集上的指定的点来画出相应的Julia集图形  *
 ******************************************************************/
 #include
 #include
-#include&nbsp;
+#include
 
 #define MAX 700
 #define M 1024 * 1024 * 1024
@@ -246,54 +280,24 @@ break;
 display();
 return;
 }
-[/coolcode]
+{% endhighlight %}
 
-</div>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1799" href="http://www.pureweber.com/article/opengl-fractal-theory/%e6%8b%9f%e5%9c%86/"><img class="size-full wp-image-1799 alignright" src="http://www.pureweber.com/wp-content/uploads/2012/01/拟圆.png" alt="" width="329" height="342" /></a></p>
+![](http://www.pureweber.com/wp-content/uploads/2012/01/拟圆.png)
 
-<div style="padding-left: 30px;padding-right: 380px">就这样，我玩了好半天。这里面是有规律的，当你的初始z0值选在M集的中心这个空洞的时候也就是收敛区域的时候，它形成的Julia集是一个闭合环形，书上叫他拟圆，当你选的点恰到好处，他会形成一个真的圆，但通常是扁的。</div>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1802" href="http://www.pureweber.com/article/opengl-fractal-theory/%e5%8f%91%e7%8a%b6%e5%88%86%e6%94%af/"><img class="alignright size-full wp-image-1802" src="http://www.pureweber.com/wp-content/uploads/2012/01/发状分支.png" alt="" width="329" height="342" /></a></p>
+就这样，我玩了好半天。这里面是有规律的，当你的初始z0值选在M集的中心这个空洞的时候也就是收敛区域的时候，它形成的Julia集是一个闭合环形，书上叫他拟圆，当你选的点恰到好处，他会形成一个真的圆，但通常是扁的。
 
-<div style="padding-left: 30px;padding-right: 380px">当你选的是这个桃心外面的点，他生成的Julia集是形如树脂那种东西，书上叫他“发状”分支。</div>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px"><a rel="attachment wp-att-1803" href="http://www.pureweber.com/article/opengl-fractal-theory/%e8%8f%9c%e8%8a%b1/"><img class="alignright size-full wp-image-1803" src="http://www.pureweber.com/wp-content/uploads/2012/01/菜花.png" alt="" width="329" height="342" /></a></p>
+![](http://www.pureweber.com/wp-content/uploads/2012/01/发状分支.png)
 
-<div style="padding-left: 30px;padding-right: 380px">而有意思的是在他们的边界，也就是桃心的轮廓上，它形成的Julia集是菜花状的。</div>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
-<p style="padding-left: 30px;padding-right: 30px">&nbsp;</p>
+当你选的是这个桃心外面的点，他生成的Julia集是形如树脂那种东西，书上叫他“发状”分支。
 
-</div>
-<div style="border: solid 1px #bbbbbb;padding: 5px;margin: 10px;background: #ececec">
-<h1 style="color: #808080">第三部分 - 非线性科学</h1>
-<div style="padding-left: 30px">这就是这两个集合，然后咱么上升到哲学层次，其实大自然到处都是分形，雪花，树叶，我们的大脑，到处都是非线性现象，然而我们只会解决线性问题，什么是线性？什么是非线性?当时我们老师讲微分方程的时候是这样说的，他在黑板上写，说到“y=kx,这就是线性的，我们会且仅会解决线性问题，什么是非线性问题？y=x^2,这就是非线性问题，高难课题。”。事实却是如此，我想到我小学学加法的时候，我们是用小棒来模拟运算过程的，你右手拿两根小棒，左手拿三根小棒，然后你把左右手的小棒放在一起，你可以从一开始数，一直数到最后一根小棒，结果是5，那么就解决了3+2的问题，当我们学乘法的时候，我们背的是99乘法表，用冬松的话说就是“那是你背下来的，你们不真会。”我们解决非线性的时候，用的都是线性的手段，来模拟和逼近。计算机只会一加一，他连减法都是用加法算的，一切复杂的问题最后都是mos管电平的高低序列。可它解决的是这样复杂的问题，这是计算机的智慧，也使我们人类看世界的方法。</div>
-</div>
-<div style="border: solid 1px #bbbbbb;padding: 5px;margin: 10px;background: #ececec">
-<h1 style="color: #808080">尾声</h1>
-<p style="padding-left: 30px;padding-right: 30px">结果，结果还不错，作业写完了，前两天她让我改改学习心得，改完之后就告诉我可以打印上交了。</p>
+![](http://www.pureweber.com/wp-content/uploads/2012/01/菜花.png)
 
-</div>
+而有意思的是在他们的边界，也就是桃心的轮廓上，它形成的Julia集是菜花状的。
+
+## 第三部分 - 非线性科学
+
+这就是这两个集合，然后咱么上升到哲学层次，其实大自然到处都是分形，雪花，树叶，我们的大脑，到处都是非线性现象，然而我们只会解决线性问题，什么是线性？什么是非线性?当时我们老师讲微分方程的时候是这样说的，他在黑板上写，说到“`y=kx`,这就是线性的，我们会且仅会解决线性问题，什么是非线性问题？`y=x^2`,这就是非线性问题，高难课题。”。事实却是如此，我想到我小学学加法的时候，我们是用小棒来模拟运算过程的，你右手拿两根小棒，左手拿三根小棒，然后你把左右手的小棒放在一起，你可以从一开始数，一直数到最后一根小棒，结果是5，那么就解决了3+2的问题，当我们学乘法的时候，我们背的是99乘法表，用冬松的话说就是“那是你背下来的，你们不真会。”我们解决非线性的时候，用的都是线性的手段，来模拟和逼近。计算机只会一加一，他连减法都是用加法算的，一切复杂的问题最后都是mos管电平的高低序列。可它解决的是这样复杂的问题，这是计算机的智慧，也使我们人类看世界的方法。
+
+尾声
+
+结果，结果还不错，作业写完了，前两天她让我改改学习心得，改完之后就告诉我可以打印上交了。

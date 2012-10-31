@@ -1,15 +1,18 @@
 ---
 layout: post
 title: 消息推送系统——（零）推倒萝莉之术
+description: 消息推送系统又叫服务器推、Comet技术、Push Server、Server Push等等。是一个很有魔力的技术，服务器不用再等待着客户端的请求，而是当有新数据的时候，可以立即主动地将数据push给客户端。
+author: 杨帆
+github: fancycedar
 tags:
-  - comet
-  - comet%e5%ba%94%e7%94%a8
-  - comet%e6%8a%80%e6%9c%af
-  - push-server-2
-  - server-push
-  - '%e6%8e%a8%e9%80%81'
-  - '%e6%9c%8d%e5%8a%a1%e5%99%a8%e6%8e%a8'
-  - '%e6%b6%88%e6%81%af%e6%8e%a8%e9%80%81'
+ - Comet
+ - Comet应用
+ - Comet技术
+ - Push Server
+ - Server Push
+ - 推送
+ - 服务器推
+ - 消息推送
 
 ---
 

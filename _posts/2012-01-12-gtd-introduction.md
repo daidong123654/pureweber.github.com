@@ -1,9 +1,11 @@
 ---
 layout: post
 title: 'GTD 简介'
+author: 朱柯军
+github: KJlmfe
 tags:
   - gtd
-  - '%e6%97%b6%e9%97%b4%e7%ae%a1%e7%90%86'
+  - '时间管理'
 
 ---
 

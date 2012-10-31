@@ -1,11 +1,14 @@
 ---
 layout: post
 title: Session原理简述
+description: 本文简要介绍session的工作原理, 讲述PHP是如何存储和管理session、并与客户端通过cookie进行交互的。另外，本文简要例举了php语言中一些session相关函数的作用。
+author: 陈云飞
+github: cloudfly
 tags:
-  - cookie
-  - php
-  - session
-  - session-id
+ - session工作原理
+ - session介绍
+ - 'php session'
+ - session
 
 ---
 

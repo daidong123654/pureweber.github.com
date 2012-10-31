@@ -1,6 +1,8 @@
 ---
 layout: post
 title: 初识jQuery
+author: 朱柯军
+github: KJlmfe
 tags:
   - javascript
   - jquery
@@ -66,22 +68,23 @@ jQuery的动画效果函数主要有：animate()  fadeIn()  fadeOut()  fadeTo()
 
 &nbsp;
 <h4>5.一个小动画页面示例（采用jQuery框架）</h4>
-演示地址：<a href="/works/demos/jquery-kick-off/example.html">jQuery小动画示例</a>
+演示地址：<a href="http://www.pureweber.com/works/demos/jquery-kick-off/example.html">jQuery小动画示例</a>
 
 动画效果说明：
 第一个按钮：以滑动效果出现一个白色黑边框的正方形 第二个按钮：正方形变成红色 第三个按钮：正方形淡出消失
 第四个按钮：点击依次循环执行上述三个按钮的功能
 
 <strong>HTML代码</strong>
-<coolcode lang="html">
+{% highlight html %}
 <button id="one">淡入</button>
 <button id="two">变红</button>
 <button id="three">消失</button>
 <button id="four">只点我</button>
-</coolcode>
+{% endhighlight %}
 
 <strong>Javascript代码</strong>
-<coolcode lang="javascript">
+
+{% highlight javascript %}
 $(document).ready(function() 
 {
 	var count = 0;
@@ -122,4 +125,4 @@ $(document).ready(function()
 		}
 	});
 });
-</coolcode>
+{% endhighlight %}

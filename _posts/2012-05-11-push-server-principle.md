@@ -1,16 +1,19 @@
 ---
 layout: post
 title: 消息推送系统——（一）概念与原理
+description: 客户端发起异步http长连接请求，服务器采用非阻塞式hold住请求不即时响应，当服务器有需求时再主动将数据推送到客户端。
+author: 杨帆
+github: fancycedar
 tags:
-  - comet
-  - comet%e6%8a%80%e6%9c%af
-  - http%e9%95%bf%e8%bf%9e%e6%8e%a5
-  - push-server-2
-  - '%e5%90%8c%e6%ad%a5'
-  - '%e5%bc%82%e6%ad%a5'
-  - '%e6%b6%88%e6%81%af%e6%8e%a8%e9%80%81'
-  - '%e9%98%bb%e5%a1%9e'
-  - '%e9%9d%9e%e9%98%bb%e5%a1%9e'
+ - Comet
+ - Comet技术
+ - http长连接
+ - Push Server
+ - 同步
+ - 异步
+ - 消息推送
+ - 阻塞
+ - 非阻塞
 
 ---
 
